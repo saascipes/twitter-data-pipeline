@@ -1,0 +1,29 @@
+# Ignore any generated TypeScript -> JavaScript files
+.github/actions/**/*.js
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# Typescript v1 declaration files
+typings/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+dist/
+# scala build files
+.cache
+.class
+target/
+
+config/debug.json
+
+tweets/

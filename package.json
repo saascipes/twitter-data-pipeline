@@ -1,0 +1,37 @@
+{
+  "name": "sg-twitter-data-pipeline",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "10.15.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "buildServer": "tsc",
+    "postinstall": "./postinstall.sh",
+    "start": "node ./server/dist/StartServer.js",
+    "dev": "concurrently \"npm:dev-*\"",
+    "dev-buildserver": "cd server && npm run watch-build",
+    "dev-redeployserver": "nodemon --watch ./server/dist ./server/dist/server/src/api/StartServer.js",
+    "dev-client": "cd clientv3 && npm run serve"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "clientv1/src/**/*.ts"
+    ],
+    "delay": "2500"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "11.13.4",
+    "pkg": "4.4.8"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "chai-http": "4.3.0",
+    "mocha": "8.2.1",
+    "wait-on": "5.2.1"
+  }
+}
