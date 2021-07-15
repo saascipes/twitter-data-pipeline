@@ -100,7 +100,13 @@
     - Open spark-lda/deploy/docker/spark-master/sg.cfg and set the following values:
         - "SG_ACCESS_KEY_ID": this is your agent access key id from step 4.1
         - "SG_ACCESS_KEY_SECRET": this is your agent access key secret from step 4.1
-6. Build docker images for running a local spark cluster
+6. Set value in vue config file
+    - Open ".env.development" in the "clientv1/" directory
+    - Set the VUE_APP_TWITTER_BEARER_TOKEN value to your Twitter bearer token
+    ```
+    VUE_APP_TWITTER_BEARER_TOKEN=[your twitter api bearer token]
+    ```
+7. Build docker images for running a local spark cluster
     - Open a terminal window
     - Change directories to the "spark-lda" directory
     ```
@@ -110,7 +116,7 @@
     ```
     $ ./build-images.sh
     ```
-7. Build docker image for local rabbitmq instance
+8. Build docker image for local rabbitmq instance
     - Open a terminal window
     - Change directories to the "rabbitmq" directory
     ```
