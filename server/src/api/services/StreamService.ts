@@ -22,88 +22,10 @@ const get = util.promisify(request.get);
 
 export class StreamService {
 
-    public async getStreams() {
-        if (!process.env.TWITTER_BEARER_TOKEN){
-            return authMessage;
-        }
-
-        const token = process.env.TWITTER_BEARER_TOKEN;
-        const requestConfig = {
-            url: config.get("streamsURL"),
-            auth: {
-                bearer: token,
-            },
-            json: true,
-        };
-
-        const response = await get(requestConfig);
-
-        if (response.statusCode !== 200)
-            throw new Error(response.body.error.message);
-
-        return response;
-    }
-
-
-    public async createStream(data: any): Promise<object> {
-        if (!process.env.TWITTER_BEARER_TOKEN){
-            return authMessage;
-        }
-
-        const token = process.env.TWITTER_BEARER_TOKEN;
-
-        const payload = { add: [{ value: data.newStream }] };
-
-        const requestConfig = {
-            url: config.get("streamsURL"),
-            auth: {
-                bearer: token,
-            },
-            json: payload,
-        };
-
-        const response: any = await post(requestConfig);
-
-        if (response.statusCode !== 201){
-            console.log('error -> ', JSON.stringify(response.body, null, 4));
-            throw new Error(response.body.error);
-        }
-
-        return response;
-    }
-
-
-    public async deleteStream(id: string): Promise<object> {
-        if (!process.env.TWITTER_BEARER_TOKEN){
-            return authMessage;
-        }
-
-        const token = process.env.TWITTER_BEARER_TOKEN;
-
-        const payload = { delete: { ids: [id] } };
-
-        const requestConfig = {
-            url: config.get("streamsURL"),
-            auth: {
-                bearer: token,
-            },
-            json: payload,
-        };
-
-        const response: any = await post(requestConfig);
-
-        if (response.statusCode !== 200)
-            throw new Error(response.body.error.message);
-
-        return response;
-    }
-
-
     public async startStream(): Promise<object> {
         try {
             const teamId: string = config.get("saasGlueTeamId");
             const existingSchedulesQuery: any = await RestAPICall(`schedule/?filter=_jobDefId==${config.get("tweetsAnalyzerJobDefId")}`, 'GET', {_teamId: teamId});
-            console.log('existingSchedulesQuery -> ', existingSchedulesQuery);
             let schedule: any = {};
             const streamEndTime = moment.utc().add(10, 'm').toDate().toISOString();
             if (existingSchedulesQuery.statusCode == 200 && existingSchedulesQuery.data.length > 0) {

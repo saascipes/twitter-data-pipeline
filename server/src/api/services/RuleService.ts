@@ -99,7 +99,7 @@ export class RuleService {
 
 
     public async resetRules(): Promise<object> {
-        console.log('resetRules -> start');
+        // console.log('resetRules -> start');
         try {
             const res: any = await RestAPICall('job', 'POST',
                 {
@@ -111,7 +111,7 @@ export class RuleService {
                     }
                 });
 
-            console.log('launch job response -> ', res.data);
+            // console.log('launch job response -> ', res.data);
         } catch (err) {
             console.log(err);
         }
